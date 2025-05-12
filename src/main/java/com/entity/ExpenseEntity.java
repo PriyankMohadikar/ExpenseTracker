@@ -2,6 +2,8 @@ package com.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -16,7 +18,8 @@ public class ExpenseEntity {
 	String category;
 	Float amount;
 	String paymentMode;
-	String expenseDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	Date expenseDate;
 	Integer userId;
 	
 	

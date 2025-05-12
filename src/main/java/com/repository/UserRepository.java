@@ -28,4 +28,12 @@ public class UserRepository {
 		return user;
 	}
 	
+	
+	//Find by mail
+	public UserEntity findUserByMail(String email) {
+		String query = "select * from users where email = ?";
+		UserEntity user = stmt.queryForObject(query,new BeanPropertyRowMapper<>(UserEntity.class),email);
+		return user;
+	}
+	
 }
