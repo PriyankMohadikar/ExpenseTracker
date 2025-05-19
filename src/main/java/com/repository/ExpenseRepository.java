@@ -56,5 +56,14 @@ public class ExpenseRepository {
 		List<ExpenseEntity> expenses = stmt.query(query, new BeanPropertyRowMapper<>(ExpenseEntity.class), userId);
 		return expenses;
 	}
+	
+	//User can view by category
+	public List<ExpenseEntity> categorywiseexpense(Integer userId,String category) {
+		String query = "select * from expenses where userId = ? and category = ?";
+		List<ExpenseEntity> expenses = stmt.query(query, new BeanPropertyRowMapper<>(ExpenseEntity.class),userId,category);
+		return expenses;
+	}
+	
+	
 
 }

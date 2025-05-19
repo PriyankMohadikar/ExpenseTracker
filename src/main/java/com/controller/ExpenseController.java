@@ -14,6 +14,8 @@ import com.entity.UserEntity;
 import com.repository.ExpenseRepository;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -22,7 +24,7 @@ public class ExpenseController {
 	@Autowired
 	ExpenseRepository expenseRepository;
 	
-	@GetMapping("add-expense")
+	@GetMapping("addexpense")
 	public String getMethodName() {
 		return "AddExpenses";
 	}
@@ -78,6 +80,22 @@ public class ExpenseController {
 		return "ExpenseSummary";
 	}
 	
+	//Search By Category For Particular user
+	@GetMapping("searchbycategory")
+	public String searchByCategory() {
+		return "CategoryInfo";
+	}
+	
+	@PostMapping("categorywiseexpense")
+	public String categoryWiseSearch(HttpSession session,String category,Model model) {
+		UserEntity user = (UserEntity) session.getAttribute("user");
+		Integer userId1 = user.getUserId();
+		List<ExpenseEntity> expenses = expenseRepository.categorywiseexpense(userId1,category);
+		model.addAttribute("expenses", expenses);
+		return "ListExpenses";
+	}
+	
+		
 	
 	
 }

@@ -9,12 +9,47 @@
     <title>Expense List</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+    }
+</style>
+    
 </head>
 <body>
 
     <!-- Navbar -->
     <jsp:include page="Navbar.jsp" />
     <div class="container mt-5">
+   <c:if test="${not empty budget}">
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title text-primary">Your Budget Summary</h4>
+            <div class="row">
+                <div class="col-md-3">
+                    <p><strong>Category:</strong> ${budget.category}</p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Total Budget:</strong> ₹${budget.amount}</p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Amount Spent:</strong> ₹${expenseamount.amount}</p>
+                </div>
+                <div class="col-md-3">
+                    <p>
+                        <strong>Amount Left:</strong> 
+                        <span class="fw-bold" style="color: ${budget.amount - expenseamount.amount >= 0 ? 'green' : 'red'};">
+                            ₹<c:out value="${budget.amount - expenseamount.amount}" />
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if>
+
         <h2 class="text-center mb-4">Expense List</h2>
         <c:if test="${not empty expenses}">
             <table class="table table-striped table-bordered">
